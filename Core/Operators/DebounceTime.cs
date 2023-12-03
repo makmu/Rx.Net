@@ -10,6 +10,7 @@ public static class DebounceTimeExtension
             obs.Subscribe(x =>
             {
                 tokenSource.Cancel();
+                tokenSource = new CancellationTokenSource();
                 Task.Delay(milliseconds, tokenSource.Token).ContinueWith(_ => subscriber.Next(x), tokenSource.Token);
             });
         });
